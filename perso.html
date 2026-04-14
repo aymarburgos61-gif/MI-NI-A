@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Aymar - ¿Cómo es?</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #f8d0e0 0%, #fce4ec 100%);
+            min-height: 100vh;
+            padding: 50px 20px;
+        }
+
+        .contenedor {
+            max-width: 1000px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* Título principal */
+        h1 {
+            text-align: center;
+            color: #d46b8f;
+            font-size: 52px;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 15px rgba(212, 107, 143, 0.3);
+            animation: fadeInDown 0.8s ease;
+            position: relative;
+        }
+
+        h1::before {
+            content: '💖';
+            position: absolute;
+            left: 15%;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 45px;
+            opacity: 0.8;
+        }
+
+        h1::after {
+            content: '💕';
+            position: absolute;
+            right: 15%;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 45px;
+            opacity: 0.8;
+        }
+
+        .subtitulo {
+            text-align: center;
+            color: #d46b8f;
+            font-size: 20px;
+            margin-bottom: 40px;
+            opacity: 0.8;
+            font-style: italic;
+        }
+
+        /* Grid de cualidades */
+        .grid-cualidades {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+
+        .cualidad {
+            background: white;
+            padding: 15px 20px;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #d46b8f;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.6s ease;
+            animation-fill-mode: both;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .cualidad:hover {
+            transform: scale(1.05);
+            background: #d46b8f;
+            color: white;
+            box-shadow: 0 10px 25px rgba(212, 107, 143, 0.4);
+        }
+
+        /* Diferentes delays para las cualidades */
+        .cualidad:nth-child(1) { animation-delay: 0.05s; }
+        .cualidad:nth-child(2) { animation-delay: 0.1s; }
+        .cualidad:nth-child(3) { animation-delay: 0.15s; }
+        .cualidad:nth-child(4) { animation-delay: 0.2s; }
+        .cualidad:nth-child(5) { animation-delay: 0.25s; }
+        .cualidad:nth-child(6) { animation-delay: 0.3s; }
+        .cualidad:nth-child(7) { animation-delay: 0.35s; }
+        .cualidad:nth-child(8) { animation-delay: 0.4s; }
+        .cualidad:nth-child(9) { animation-delay: 0.45s; }
+        .cualidad:nth-child(10) { animation-delay: 0.5s; }
+        .cualidad:nth-child(11) { animation-delay: 0.55s; }
+        .cualidad:nth-child(12) { animation-delay: 0.6s; }
+        .cualidad:nth-child(13) { animation-delay: 0.65s; }
+
+        /* Sección de imágenes */
+        .seccion-imagenes {
+            background: white;
+            border-radius: 25px;
+            padding: 30px;
+            margin-bottom: 35px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            animation: fadeInUp 0.6s ease;
+            animation-delay: 0.7s;
+            animation-fill-mode: both;
+        }
+
+        .seccion-imagenes h2 {
+            text-align: center;
+            color: #d46b8f;
+            font-size: 28px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .seccion-imagenes h2::before {
+            content: '📸';
+            font-size: 30px;
+        }
+
+        .seccion-imagenes h2::after {
+            content: '📷';
+            font-size: 30px;
+        }
+
+        .galeria {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            justify-content: center;
+        }
+
+        .tarjeta-imagen {
+            flex: 1;
+            min-width: 250px;
+            background: #fef5f7;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .tarjeta-imagen:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 30px rgba(212, 107, 143, 0.3);
+        }
+
+        .marco-imagen {
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #ffb6c1, #d46b8f);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .marco-imagen img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .tarjeta-imagen:hover .marco-imagen img {
+            transform: scale(1.1);
+        }
+
+        .placeholder-imagen {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #ffb6c1, #d46b8f);
+            color: white;
+            font-size: 48px;
+            gap: 10px;
+        }
+
+        .placeholder-imagen p {
+            font-size: 14px;
+            margin-top: 10px;
+            background: rgba(0,0,0,0.3);
+            padding: 5px 10px;
+            border-radius: 20px;
+        }
+
+        .pie-imagen {
+            padding: 15px;
+            text-align: center;
+            color: #d46b8f;
+            font-weight: bold;
+            background: white;
+        }
+
+        /* Botón de regreso */
+        .boton-volver {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .boton-wrapper {
+            position: relative;
+            display: inline-block;
+            border-radius: 35px;
+        }
+
+        .boton-wrapper::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(45deg, #ff0000, #ff7700, #ffdd00, #00ff00, #0000ff, #4b0082, #9400d3, #ff0000);
+            background-size: 400%;
+            border-radius: 35px;
+            z-index: -1;
+            animation: girarColores 3s linear infinite;
+        }
+
+        .boton-wrapper::after {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(45deg, #ff0000, #ff7700, #ffdd00, #00ff00, #0000ff, #4b0082, #9400d3, #ff0000);
+            background-size: 400%;
+            border-radius: 35px;
+            z-index: -2;
+            filter: blur(15px);
+            animation: girarColores 3s linear infinite;
+        }
+
+        button {
+            padding: 14px 40px;
+            font-size: 18px;
+            font-weight: bold;
+            background-color: white;
+            color: #d46b8f;
+            border: none;
+            border-radius: 35px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+            font-family: inherit;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            color: #b84d70;
+        }
+
+        @keyframes girarColores {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Animaciones */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Corazón flotante */
+        .corazon-flotante {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(45deg, #ffb6c1, #d46b8f);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(212, 107, 143, 0.4);
+            transition: all 0.3s ease;
+            animation: latir 1s ease infinite;
+        }
+
+        .corazon-flotante:hover {
+            transform: scale(1.1);
+        }
+
+        @keyframes latir {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* ============================================ */
+        /* FORMATO PARA CELULAR - MEDIA QUERIES */
+        /* ============================================ */
+        
+        /* Tablets (768px y menores) */
+        @media (max-width: 768px) {
+            body {
+                padding: 30px 15px;
+            }
+            
+            .contenedor {
+                max-width: 100%;
+            }
+            
+            h1 {
+                font-size: 40px;
+            }
+            
+            h1::before, h1::after {
+                font-size: 30px;
+            }
+            
+            .subtitulo {
+                font-size: 18px;
+                margin-bottom: 30px;
+            }
+            
+            .grid-cualidades {
+                grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+                gap: 15px;
+            }
+            
+            .cualidad {
+                font-size: 15px;
+                padding: 12px 15px;
+            }
+        }
+        
+        /* Celulares (600px y menores) */
+        @media (max-width: 600px) {
+            body {
+                padding: 20px 15px;
+            }
+            
+            h1 {
+                font-size: 36px;
+                margin-bottom: 15px;
+            }
+            
+            h1::before, h1::after {
+                font-size: 25px;
+                display: none;
+            }
+            
+            .subtitulo {
+                font-size: 16px;
+                margin-bottom: 25px;
+            }
+            
+            .grid-cualidades {
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+                gap: 12px;
+                margin-bottom: 30px;
+            }
+            
+            .cualidad {
+                font-size: 13px;
+                padding: 10px 12px;
+            }
+            
+            .seccion-imagenes {
+                padding: 20px;
+                margin-bottom: 25px;
+            }
+            
+            .seccion-imagenes h2 {
+                font-size: 22px;
+            }
+            
+            .seccion-imagenes h2::before,
+            .seccion-imagenes h2::after {
+                font-size: 24px;
+            }
+            
+            .galeria {
+                flex-direction: column;
+                gap: 18px;
+            }
+            
+            .tarjeta-imagen {
+                min-width: 100%;
+            }
+            
+            .marco-imagen {
+                height: 200px;
+            }
+            
+            .pie-imagen {
+                padding: 12px;
+                font-size: 14px;
+            }
+            
+            button {
+                padding: 12px 30px;
+                font-size: 16px;
+            }
+            
+            .corazon-flotante {
+                width: 50px;
+                height: 50px;
+                font-size: 25px;
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+        
+        /* Celulares pequeños (480px y menores) */
+        @media (max-width: 480px) {
+            body {
+                padding: 15px 12px;
+            }
+            
+            h1 {
+                font-size: 30px;
+            }
+            
+            .subtitulo {
+                font-size: 14px;
+                margin-bottom: 20px;
+            }
+            
+            .grid-cualidades {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+                gap: 10px;
+                margin-bottom: 25px;
+            }
+            
+            .cualidad {
+                font-size: 12px;
+                padding: 8px 10px;
+            }
+            
+            .seccion-imagenes {
+                padding: 15px;
+            }
+            
+            .seccion-imagenes h2 {
+                font-size: 18px;
+                margin-bottom: 15px;
+            }
+            
+            .seccion-imagenes h2::before,
+            .seccion-imagenes h2::after {
+                font-size: 20px;
+            }
+            
+            .marco-imagen {
+                height: 180px;
+            }
+            
+            .pie-imagen {
+                padding: 10px;
+                font-size: 12px;
+            }
+            
+            button {
+                padding: 10px 25px;
+                font-size: 14px;
+            }
+            
+            .corazon-flotante {
+                width: 45px;
+                height: 45px;
+                font-size: 22px;
+            }
+        }
+        
+        /* Para dispositivos con pantalla táctil */
+        @media (hover: none) and (pointer: coarse) {
+            .cualidad:hover {
+                transform: none;
+            }
+            
+            .cualidad:active {
+                transform: scale(0.98);
+                background: #d46b8f;
+                color: white;
+            }
+            
+            .tarjeta-imagen:hover {
+                transform: none;
+            }
+            
+            .tarjeta-imagen:active {
+                transform: scale(0.98);
+            }
+            
+            button:active {
+                transform: scale(0.96);
+            }
+            
+            .corazon-flotante:active {
+                transform: scale(0.95);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="contenedor">
+        <h1>✨ ¿Cómo es? ✨</h1>
+        <div class="subtitulo">🌸 Así es la persona más especial del mundo 🌸</div>
+        
+        <!-- Grid de cualidades -->
+        <div class="grid-cualidades">
+            <div class="cualidad">💖 Linda</div>
+            <div class="cualidad">✨ Pecosa</div>
+            <div class="cualidad">🌀 Loca</div>
+            <div class="cualidad">🌸 Hermosa</div>
+            <div class="cualidad">⚡ Espontánea</div>
+            <div class="cualidad">🎉 Divertida</div>
+            <div class="cualidad">🐾 Juguetona</div>
+            <div class="cualidad">🤗 Muy amable</div>
+            <div class="cualidad">💕 Cariñosa</div>
+            <div class="cualidad">🎯 Considerada</div>
+            <div class="cualidad">👁️ Tiene unos ojos hermosos</div>
+            <div class="cualidad">💝 Un muy grande corazón</div>
+        </div>
+
+        <!-- Sección de imágenes -->
+        <div class="seccion-imagenes">
+            <h2>Mis momentos favoritos</h2>
+            <div class="galeria">
+                <!-- Imagen 1 -->
+                <div class="tarjeta-imagen" onclick="alert('💖 ¡Qué linda eres! 💖')">
+                    <div class="marco-imagen">
+                        <img src="imagin/5.jpeg" alt="Foto de Aymar 1" onerror="this.parentElement.innerHTML='<div class=placeholder-imagen>📸<p>Agrega tu foto aquí</p></div>'">
+                    </div>
+                    <div class="pie-imagen">🌸 Momentos felices 🌸</div>
+                </div>
+
+                <!-- Imagen 2 -->
+                <div class="tarjeta-imagen" onclick="alert('✨ Tu sonrisa ilumina todo ✨')">
+                    <div class="marco-imagen">
+                        <img src="imagin/4.jpeg" alt="Foto de Aymar 2" onerror="this.parentElement.innerHTML='<div class=placeholder-imagen>📷<p>Agrega tu foto aquí</p></div>'">
+                    </div>
+                    <div class="pie-imagen">💫 Sonrisa radiante 💫</div>
+                </div>
+
+                <!-- Imagen 3 -->
+                <div class="tarjeta-imagen" onclick="alert('💝 Eres única y especial 💝')">
+                    <div class="marco-imagen">
+                        <img src="imagin/8.jpeg" alt="Foto de Aymar 3" onerror="this.parentElement.innerHTML='<div class=placeholder-imagen>🖼️<p>Agrega tu foto aquí</p></div>'">
+                    </div>
+                    <div class="pie-imagen">💕 Eres única 💕</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botón de regreso -->
+        <div class="boton-volver">
+            <div class="boton-wrapper">
+                <button onclick="window.location.href='aymar.html'">✨ Volver ✨</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Corazón flotante -->
+    <div class="corazon-flotante" onclick="alert('💖 Eres la persona más especial del mundo 💖')">
+        💖
+    </div>
+
+    <script>
+        function cargarImagenes() {
+            const imagenes = document.querySelectorAll('.marco-imagen img');
+            imagenes.forEach(img => {
+                img.addEventListener('error', function() {
+                    const marco = this.parentElement;
+                    if(marco && !marco.querySelector('.placeholder-imagen')) {
+                        const placeholder = document.createElement('div');
+                        placeholder.className = 'placeholder-imagen';
+                        placeholder.innerHTML = '📸<p>Agrega tu foto aquí</p>';
+                        this.style.display = 'none';
+                        marco.appendChild(placeholder);
+                    }
+                });
+            });
+        }
+        
+        window.onload = cargarImagenes;
+    </script>
+</body>
+</html>

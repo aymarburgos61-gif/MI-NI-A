@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Aymar - ¿Qué desea ser?</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #f8d0e0 0%, #fce4ec 100%);
+            min-height: 100vh;
+            padding: 50px 20px;
+        }
+
+        .contenedor {
+            max-width: 900px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* Título principal */
+        h1 {
+            text-align: center;
+            color: #d46b8f;
+            font-size: 52px;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 15px rgba(212, 107, 143, 0.3);
+            animation: fadeInDown 0.8s ease;
+            position: relative;
+        }
+
+        h1::before {
+            content: '✈️';
+            position: absolute;
+            left: 10%;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 45px;
+            opacity: 0.8;
+        }
+
+        h1::after {
+            content: '🌍';
+            position: absolute;
+            right: 10%;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 45px;
+            opacity: 0.8;
+        }
+
+        .subtitulo {
+            text-align: center;
+            color: #d46b8f;
+            font-size: 20px;
+            margin-bottom: 40px;
+            opacity: 0.8;
+            font-style: italic;
+        }
+
+        /* Tarjeta principal */
+        .tarjeta-principal {
+            background-color: white;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            animation: fadeInUp 0.6s ease;
+            margin-bottom: 35px;
+            width: 100%;
+        }
+
+        /* Contenido interno */
+        .contenido-sueno {
+            padding: 35px;
+        }
+
+        /* Título del sueño */
+        .titulo-sueno {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .titulo-sueno h2 {
+            font-size: 36px;
+            color: #d46b8f;
+            display: inline-block;
+            background: #fef5f7;
+            padding: 10px 30px;
+            border-radius: 50px;
+            box-shadow: 0 5px 15px rgba(212, 107, 143, 0.2);
+        }
+
+        /* Descripción */
+        .descripcion {
+            color: #555;
+            line-height: 1.8;
+            font-size: 17px;
+            margin: 25px 0;
+            text-align: justify;
+        }
+
+        .descripcion strong {
+            color: #d46b8f;
+        }
+
+        /* Lista de razones */
+        .razones {
+            background: #fef5f7;
+            border-radius: 20px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+
+        .razones h3 {
+            color: #d46b8f;
+            font-size: 22px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .razones ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .razones li {
+            padding: 10px 0;
+            color: #555;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 16px;
+            border-bottom: 1px solid #f0b6d0;
+        }
+
+        .razones li:last-child {
+            border-bottom: none;
+        }
+
+        .razones li::before {
+            content: '✈️';
+            font-size: 20px;
+        }
+
+        /* Sección de imagen */
+        .seccion-imagen {
+            background: white;
+            border-radius: 25px;
+            padding: 30px;
+            margin-bottom: 35px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            animation: fadeInUp 0.6s ease;
+            animation-delay: 0.2s;
+            animation-fill-mode: both;
+        }
+
+        .seccion-imagen h3 {
+            text-align: center;
+            color: #d46b8f;
+            font-size: 24px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .contenedor-imagen {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .tarjeta-imagen {
+            max-width: 400px;
+            width: 100%;
+            background: #fef5f7;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .tarjeta-imagen:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 35px rgba(212, 107, 143, 0.3);
+        }
+
+        .marco-imagen {
+            width: 100%;
+            height: 300px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #ffb6c1, #d46b8f);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .marco-imagen img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .tarjeta-imagen:hover .marco-imagen img {
+            transform: scale(1.1);
+        }
+
+        .placeholder-imagen {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #ffb6c1, #d46b8f);
+            color: white;
+            font-size: 48px;
+            gap: 10px;
+        }
+
+        .placeholder-imagen p {
+            font-size: 14px;
+            margin-top: 10px;
+            background: rgba(0,0,0,0.3);
+            padding: 5px 10px;
+            border-radius: 20px;
+        }
+
+        .pie-imagen {
+            padding: 15px;
+            text-align: center;
+            color: #d46b8f;
+            font-weight: bold;
+            background: white;
+        }
+
+        /* Frase inspiradora */
+        .frase {
+            text-align: center;
+            background: linear-gradient(135deg, #ffb6c1, #d46b8f);
+            padding: 20px;
+            border-radius: 20px;
+            margin: 25px 0;
+        }
+
+        .frase p {
+            color: white;
+            font-size: 18px;
+            font-style: italic;
+            font-weight: bold;
+        }
+
+        /* Botón de regreso */
+        .boton-volver {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .boton-wrapper {
+            position: relative;
+            display: inline-block;
+            border-radius: 35px;
+        }
+
+        .boton-wrapper::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(45deg, #ff0000, #ff7700, #ffdd00, #00ff00, #0000ff, #4b0082, #9400d3, #ff0000);
+            background-size: 400%;
+            border-radius: 35px;
+            z-index: -1;
+            animation: girarColores 3s linear infinite;
+        }
+
+        .boton-wrapper::after {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(45deg, #ff0000, #ff7700, #ffdd00, #00ff00, #0000ff, #4b0082, #9400d3, #ff0000);
+            background-size: 400%;
+            border-radius: 35px;
+            z-index: -2;
+            filter: blur(15px);
+            animation: girarColores 3s linear infinite;
+        }
+
+        button {
+            padding: 14px 40px;
+            font-size: 18px;
+            font-weight: bold;
+            background-color: white;
+            color: #d46b8f;
+            border: none;
+            border-radius: 35px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+            font-family: inherit;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            color: #b84d70;
+        }
+
+        @keyframes girarColores {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Animaciones */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Avión flotante */
+        .avion-flotante {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(45deg, #ffb6c1, #d46b8f);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(212, 107, 143, 0.4);
+            transition: all 0.3s ease;
+            animation: volar 2s ease infinite;
+        }
+
+        .avion-flotante:hover {
+            transform: scale(1.1);
+        }
+
+        @keyframes volar {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-10px) scale(1.05); }
+        }
+
+        /* ============================================ */
+        /* FORMATO PARA CELULAR - MEDIA QUERIES */
+        /* ============================================ */
+        
+        /* Tablets (768px y menores) */
+        @media (max-width: 768px) {
+            body {
+                padding: 30px 15px;
+            }
+            
+            .contenedor {
+                max-width: 100%;
+            }
+        }
+        
+        /* Celulares (600px y menores) */
+        @media (max-width: 600px) {
+            body {
+                padding: 20px 15px;
+            }
+            
+            h1 {
+                font-size: 36px;
+                margin-bottom: 15px;
+            }
+            
+            h1::before, h1::after {
+                font-size: 25px;
+                display: none;
+            }
+            
+            .subtitulo {
+                font-size: 16px;
+                margin-bottom: 25px;
+            }
+            
+            .titulo-sueno h2 {
+                font-size: 22px;
+                padding: 8px 16px;
+            }
+            
+            .descripcion {
+                font-size: 14px;
+                line-height: 1.6;
+                margin: 18px 0;
+            }
+            
+            .contenido-sueno {
+                padding: 20px 22px;
+            }
+            
+            .razones {
+                padding: 18px;
+                margin: 18px 0;
+            }
+            
+            .razones h3 {
+                font-size: 18px;
+            }
+            
+            .razones li {
+                font-size: 13px;
+                padding: 8px 0;
+                gap: 10px;
+            }
+            
+            .razones li::before {
+                font-size: 16px;
+            }
+            
+            .frase p {
+                font-size: 14px;
+            }
+            
+            .seccion-imagen {
+                padding: 20px;
+            }
+            
+            .seccion-imagen h3 {
+                font-size: 18px;
+            }
+            
+            .marco-imagen {
+                height: 220px;
+            }
+            
+            .pie-imagen {
+                padding: 12px;
+                font-size: 14px;
+            }
+            
+            button {
+                padding: 12px 30px;
+                font-size: 16px;
+            }
+            
+            .avion-flotante {
+                width: 50px;
+                height: 50px;
+                font-size: 24px;
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+        
+        /* Celulares pequeños (400px y menores) */
+        @media (max-width: 480px) {
+            body {
+                padding: 15px 12px;
+            }
+            
+            h1 {
+                font-size: 28px;
+            }
+            
+            .subtitulo {
+                font-size: 14px;
+            }
+            
+            .titulo-sueno h2 {
+                font-size: 18px;
+                padding: 6px 12px;
+            }
+            
+            .contenido-sueno {
+                padding: 15px 18px;
+            }
+            
+            .descripcion {
+                font-size: 13px;
+            }
+            
+            .razones {
+                padding: 15px;
+            }
+            
+            .razones h3 {
+                font-size: 16px;
+            }
+            
+            .razones li {
+                font-size: 12px;
+                padding: 6px 0;
+            }
+            
+            .frase p {
+                font-size: 12px;
+            }
+            
+            .seccion-imagen {
+                padding: 15px;
+            }
+            
+            .seccion-imagen h3 {
+                font-size: 16px;
+            }
+            
+            .marco-imagen {
+                height: 180px;
+            }
+            
+            .pie-imagen {
+                padding: 10px;
+                font-size: 12px;
+            }
+            
+            button {
+                padding: 10px 25px;
+                font-size: 14px;
+            }
+            
+            .avion-flotante {
+                width: 45px;
+                height: 45px;
+                font-size: 22px;
+            }
+        }
+        
+        /* Para dispositivos con pantalla táctil (mejora la experiencia táctil) */
+        @media (hover: none) and (pointer: coarse) {
+            .tarjeta-imagen:hover {
+                transform: none;
+            }
+            
+            .tarjeta-imagen:active {
+                transform: scale(0.98);
+            }
+            
+            button:active {
+                transform: scale(0.96);
+            }
+            
+            .avion-flotante:active {
+                transform: scale(0.95);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="contenedor">
+        <h1>✈️ ¿Qué desea ser? 🌍</h1>
+        <div class="subtitulo">🌸 Un sueño que vuela alto 🌸</div>
+        
+        <!-- Tarjeta principal del sueño -->
+        <div class="tarjeta-principal">
+            <div class="contenido-sueno">
+                <div class="titulo-sueno">
+                    <h2>✈️ Tripulante de Cabina ✈️</h2>
+                </div>
+                
+                <p class="descripcion">
+                    <strong>Aymar</strong> sueña con volar alto y alcanzar las nubes. Su mayor deseo es convertirse en 
+                    <strong>Tripulante de Cabina (Azafata)</strong>, porque sabe que tiene el carisma, la amabilidad 
+                    y la dedicación que se necesitan para hacer felices a los pasajeros durante sus viajes.
+                </p>
+
+                <div class="razones">
+                    <h3>🌟 ¿Por qué sería perfecta? 🌟</h3>
+                    <ul>
+                        <li>Su sonrisa iluminaría cada vuelo</li>
+                        <li>Su amabilidad haría sentir a todos como en casa</li>
+                        <li>Su paciencia y calma resolverían cualquier situación</li>
+                        <li>Su energía positiva contagiaría a todo el avión</li>
+                        <li>Su dedicación la llevaría muy lejos</li>
+                    </ul>
+                </div>
+
+                <p class="descripcion">
+                    Con su <strong>gran corazón</strong> y su <strong>espíritu aventurero</strong>, Aymar está destinada 
+                    a recorrer el mundo, conocer nuevos lugares, culturas y personas. Ser tripulante de cabina no es 
+                    solo un trabajo para ella, es la oportunidad de <strong>volar hacia sus sueños</strong> y 
+                    demostrar que los cielos son el límite.
+                </p>
+
+                <div class="frase">
+                    <p>✈️ "El cielo no es el límite, es solo el comienzo de tu aventura" ✈️</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección de imagen -->
+        <div class="seccion-imagen">
+            <h3>📸 Su futuro como Tripulante de Cabina ✨</h3>
+            <div class="contenedor-imagen">
+                <div class="tarjeta-imagen" onclick="alert('✈️ ¡Vuela alto, Aymar! El cielo te espera ✈️')">
+                    <div class="marco-imagen">
+                        <!-- Cambia "tripulante.jpg" por la ruta de tu imagen -->
+                        <img src="imagin/3.jpeg" alt="Aymar - Tripulante de Cabina" onerror="this.parentElement.innerHTML='<div class=placeholder-imagen>✈️<p>Agrega una imagen aquí</p></div>'">
+                    </div>
+                    <div class="pie-imagen">✈️ ¡Vuela alto, Aymar! ✈️</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botón de regreso -->
+        <div class="boton-volver">
+            <div class="boton-wrapper">
+                <button onclick="window.location.href='aymar.html'">✨ Volver ✨</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Avión flotante -->
+    <div class="avion-flotante" onclick="alert('✈️ ¡Que tu sueño vuele más alto que las nubes! ✈️')">
+        ✈️
+    </div>
+
+    <script>
+        function cargarImagen() {
+            const img = document.querySelector('.marco-imagen img');
+            if(img) {
+                img.addEventListener('error', function() {
+                    const marco = this.parentElement;
+                    if(marco && !marco.querySelector('.placeholder-imagen')) {
+                        const placeholder = document.createElement('div');
+                        placeholder.className = 'placeholder-imagen';
+                        placeholder.innerHTML = '✈️<p>Agrega una foto aquí</p>';
+                        this.style.display = 'none';
+                        marco.appendChild(placeholder);
+                    }
+                });
+            }
+        }
+        
+        window.onload = cargarImagen;
+    </script>
+</body>
+</html>

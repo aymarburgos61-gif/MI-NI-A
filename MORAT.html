@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>MORAT - Música para Aymar</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #f8d0e0 0%, #fce4ec 100%);
+            min-height: 100vh;
+            padding: 50px 20px;
+        }
+
+        .contenedor {
+            max-width: 900px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* Título principal */
+        h1 {
+            text-align: center;
+            color: #d46b8f;
+            font-size: 52px;
+            margin-bottom: 50px;
+            text-shadow: 3px 3px 15px rgba(212, 107, 143, 0.3);
+            animation: fadeInDown 0.8s ease;
+            position: relative;
+        }
+
+        h1::before {
+            content: '🎵';
+            position: absolute;
+            left: 15%;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 45px;
+            opacity: 0.8;
+        }
+
+        h1::after {
+            content: '🎶';
+            position: absolute;
+            right: 15%;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 45px;
+            opacity: 0.8;
+        }
+
+        /* Tarjetas de canciones */
+        .tarjeta-cancion {
+            background-color: white;
+            border-radius: 25px;
+            margin-bottom: 35px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.6s ease;
+            animation-fill-mode: both;
+            position: relative;
+            width: 100%;
+        }
+
+        .tarjeta-cancion:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 45px rgba(212, 107, 143, 0.25);
+        }
+
+        /* Línea decorativa */
+        .tarjeta-cancion::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 8px;
+            height: 100%;
+            background: linear-gradient(180deg, #ffb6c1, #d46b8f);
+        }
+
+        /* Diferentes delays */
+        .tarjeta-cancion:nth-child(1) { animation-delay: 0.1s; }
+        .tarjeta-cancion:nth-child(2) { animation-delay: 0.2s; }
+
+        /* Contenido interno */
+        .contenido-cancion {
+            padding: 30px 35px;
+        }
+
+        /* Título de la canción */
+        h2 {
+            font-size: 32px;
+            color: #d46b8f;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 2px solid #f0b6d0;
+            padding-bottom: 10px;
+        }
+
+        h2::before {
+            content: '🎤';
+            font-size: 35px;
+        }
+
+        /* Descripción */
+        p {
+            color: #555;
+            line-height: 1.7;
+            font-size: 16px;
+            margin: 20px 0;
+            text-align: justify;
+        }
+
+        /* Reproductor de audio personalizado */
+        .reproductor-wrapper {
+            margin: 25px 0 15px 0;
+        }
+
+        .reproductor {
+            background: #fef5f7;
+            border-radius: 60px;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 5px 15px rgba(212, 107, 143, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .reproductor:hover {
+            background: #fce4ec;
+            box-shadow: 0 8px 20px rgba(212, 107, 143, 0.25);
+        }
+
+        .reproductor-icono {
+            font-size: 32px;
+            background: linear-gradient(135deg, #ffb6c1, #d46b8f);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 3px 10px rgba(212, 107, 143, 0.3);
+        }
+
+        audio {
+            flex: 1;
+            height: 45px;
+            border-radius: 30px;
+            outline: none;
+        }
+
+        /* Personalizar el reproductor de audio en Chrome/Safari */
+        audio::-webkit-media-controls-panel {
+            background-color: #fef5f7;
+        }
+
+        audio::-webkit-media-controls-play-button {
+            background-color: #d46b8f;
+            border-radius: 50%;
+        }
+
+        audio::-webkit-media-controls-play-button:hover {
+            background-color: #b84d70;
+            transform: scale(1.1);
+        }
+
+        audio::-webkit-media-controls-timeline {
+            background-color: #ffb6c1;
+            border-radius: 10px;
+        }
+
+        /* Nota musical flotante */
+        .nota-musical {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(45deg, #ffb6c1, #d46b8f);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(212, 107, 143, 0.4);
+            transition: all 0.3s ease;
+            animation: vibrar 1s ease infinite;
+        }
+
+        .nota-musical:hover {
+            transform: scale(1.1);
+        }
+
+        @keyframes vibrar {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Animaciones */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ============================================ */
+        /* FORMATO PARA CELULAR - MEDIA QUERIES */
+        /* ============================================ */
+        
+        /* Tablets (768px y menores) */
+        @media (max-width: 768px) {
+            body {
+                padding: 30px 15px;
+            }
+            
+            .contenedor {
+                max-width: 100%;
+            }
+        }
+        
+        /* Celulares (600px y menores) */
+        @media (max-width: 600px) {
+            body {
+                padding: 20px 15px;
+            }
+            
+            h1 {
+                font-size: 36px;
+                margin-bottom: 35px;
+            }
+            
+            h1::before, h1::after {
+                font-size: 25px;
+                display: none;
+            }
+            
+            h2 {
+                font-size: 24px;
+            }
+            
+            h2::before {
+                font-size: 28px;
+            }
+            
+            .contenido-cancion {
+                padding: 20px 25px;
+            }
+            
+            .reproductor {
+                flex-wrap: wrap;
+                justify-content: center;
+                padding: 12px 15px;
+            }
+            
+            .reproductor-icono {
+                width: 40px;
+                height: 40px;
+                font-size: 24px;
+            }
+            
+            audio {
+                width: 100%;
+            }
+            
+            p {
+                font-size: 14px;
+                line-height: 1.6;
+            }
+            
+            .nota-musical {
+                width: 50px;
+                height: 50px;
+                font-size: 25px;
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+        
+        /* Celulares pequeños (400px y menores) */
+        @media (max-width: 480px) {
+            body {
+                padding: 15px 12px;
+            }
+            
+            h1 {
+                font-size: 30px;
+                margin-bottom: 25px;
+            }
+            
+            h2 {
+                font-size: 20px;
+            }
+            
+            h2::before {
+                font-size: 24px;
+            }
+            
+            .contenido-cancion {
+                padding: 15px 18px;
+            }
+            
+            .tarjeta-cancion {
+                margin-bottom: 20px;
+                border-radius: 20px;
+            }
+            
+            .tarjeta-cancion::before {
+                width: 5px;
+            }
+            
+            p {
+                font-size: 13px;
+                margin: 15px 0;
+            }
+            
+            .reproductor {
+                padding: 10px 12px;
+                gap: 10px;
+            }
+            
+            .reproductor-icono {
+                width: 35px;
+                height: 35px;
+                font-size: 20px;
+            }
+            
+            .nota-musical {
+                width: 45px;
+                height: 45px;
+                font-size: 22px;
+            }
+        }
+        
+        /* Para dispositivos con pantalla táctil */
+        @media (hover: none) and (pointer: coarse) {
+            .tarjeta-cancion:hover {
+                transform: none;
+            }
+            
+            .tarjeta-cancion:active {
+                transform: scale(0.98);
+            }
+            
+            .nota-musical:active {
+                transform: scale(0.95);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="contenedor">
+        <h1>🎵 MORAT 🎵</h1>
+        
+        <!-- Santa Fe -->
+        <div class="tarjeta-cancion">
+            <div class="contenido-cancion">
+                <h2>Santa Fe</h2>
+                <p>"Santa Fe" de Morat utiliza la dolorosa derrota futbolística del equipo bogotano en la final de 2017 ante Millonarios como metáfora. Describe la melancolía, el despecho y el fin de una relación amorosa, comparando la tristeza de la ruptura con la pérdida de un partido crucial.</p>
+                <div class="reproductor-wrapper">
+                    <div class="reproductor">
+                        <div class="reproductor-icono">🎵</div>
+                        <audio controls>
+                            <source src="musica/Santa Fe.mp3" type="audio/mpeg">
+                            Tu navegador no soporta el elemento de audio.
+                        </audio>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Antes De Los Veinte -->
+        <div class="tarjeta-cancion">
+            <div class="contenido-cancion">
+                <h2>Antes De Los Veinte</h2>
+                <p>La canción 'Antes de Los 20' de Morat es un himno a la juventud y a la importancia de vivir intensamente cada momento antes de alcanzar la veintena. La letra refleja un deseo de experimentar la vida sin restricciones, aprovechando la libertad que ofrece la juventud para cometer errores, aprender y crecer.</p>
+                <div class="reproductor-wrapper">
+                    <div class="reproductor">
+                        <div class="reproductor-icono">🎶</div>
+                        <audio controls>
+                            <source src="musica/Morat - Antes De Los Veinte (Visualiser).mp3" type="audio/mpeg">
+                            Tu navegador no soporta el elemento de audio.
+                        </audio>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Nota musical flotante -->
+    <div class="nota-musical" onclick="alert('🎶 Disfruta la música de Morat 🎶')">
+        🎵
+    </div>
+</body>
+</html>

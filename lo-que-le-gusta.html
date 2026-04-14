@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Lo que le gusta a Aymar</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #f8d0e0 0%, #fce4ec 100%);
+            min-height: 100vh;
+            padding: 50px 20px;
+        }
+
+        .contenedor {
+            max-width: 800px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* Tarjeta principal */
+        .tarjeta-principal {
+            background-color: white;
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            animation: fadeInUp 0.6s ease;
+        }
+
+        /* Título */
+        h1 {
+            text-align: center;
+            color: #d46b8f;
+            font-size: 42px;
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, #ffb6c1, #d46b8f);
+            border-radius: 3px;
+        }
+
+        h1::before {
+            content: '🌸';
+            position: absolute;
+            left: 10%;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 35px;
+            opacity: 0.6;
+        }
+
+        /* Subtítulo */
+        .subtitulo {
+            text-align: center;
+            color: #d46b8f;
+            font-size: 20px;
+            margin-bottom: 30px;
+            opacity: 0.8;
+        }
+
+        /* Grid de categorías */
+        .grid-categorias {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        /* Cada categoría */
+        .categoria {
+            background: #fef5f7;
+            border-radius: 20px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            border-left: 5px solid #d46b8f;
+        }
+
+        .categoria:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(212, 107, 143, 0.2);
+        }
+
+        /* Título de categoría */
+        .categoria-titulo {
+            font-size: 22px;
+            font-weight: bold;
+            color: #d46b8f;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .categoria-titulo span {
+            font-size: 28px;
+        }
+
+        /* Lista de gustos */
+        .lista-gustos {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .gusto {
+            background: white;
+            padding: 8px 18px;
+            border-radius: 25px;
+            color: #555;
+            font-size: 16px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border: 1px solid #f0b6d0;
+        }
+
+        .gusto:hover {
+            background: #d46b8f;
+            color: white;
+            transform: scale(1.05);
+            border-color: #d46b8f;
+        }
+
+        /* Botón de regreso */
+        .boton-volver {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .boton-wrapper {
+            position: relative;
+            display: inline-block;
+            border-radius: 35px;
+        }
+
+        .boton-wrapper::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(45deg, #ff0000, #ff7700, #ffdd00, #00ff00, #0000ff, #4b0082, #9400d3, #ff0000);
+            background-size: 400%;
+            border-radius: 35px;
+            z-index: -1;
+            animation: girarColores 3s linear infinite;
+        }
+
+        .boton-wrapper::after {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(45deg, #ff0000, #ff7700, #ffdd00, #00ff00, #0000ff, #4b0082, #9400d3, #ff0000);
+            background-size: 400%;
+            border-radius: 35px;
+            z-index: -2;
+            filter: blur(15px);
+            animation: girarColores 3s linear infinite;
+        }
+
+        button {
+            padding: 14px 40px;
+            font-size: 18px;
+            font-weight: bold;
+            background-color: white;
+            color: #d46b8f;
+            border: none;
+            border-radius: 35px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+            font-family: inherit;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            color: #b84d70;
+        }
+
+        @keyframes girarColores {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Corazón flotante */
+        .corazon {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(45deg, #ffb6c1, #d46b8f);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(212, 107, 143, 0.4);
+            transition: all 0.3s ease;
+            animation: latir 1s ease infinite;
+        }
+
+        .corazon:hover {
+            transform: scale(1.1);
+        }
+
+        @keyframes latir {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Animaciones */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ============================================ */
+        /* FORMATO PARA CELULAR - MEDIA QUERIES */
+        /* ============================================ */
+        
+        /* Tablets (768px y menores) */
+        @media (max-width: 768px) {
+            body {
+                padding: 30px 15px;
+            }
+            
+            .contenedor {
+                max-width: 100%;
+            }
+        }
+        
+        /* Celulares (600px y menores) */
+        @media (max-width: 600px) {
+            body {
+                padding: 20px 15px;
+            }
+            
+            h1 {
+                font-size: 32px;
+            }
+            
+            h1::before {
+                display: none;
+            }
+            
+            .subtitulo {
+                font-size: 16px;
+                margin-bottom: 20px;
+            }
+            
+            .categoria-titulo {
+                font-size: 18px;
+            }
+            
+            .categoria-titulo span {
+                font-size: 24px;
+            }
+            
+            .gusto {
+                font-size: 14px;
+                padding: 6px 14px;
+            }
+            
+            .tarjeta-principal {
+                padding: 25px;
+            }
+            
+            .categoria {
+                padding: 15px;
+            }
+            
+            .grid-categorias {
+                gap: 18px;
+            }
+            
+            button {
+                padding: 12px 30px;
+                font-size: 16px;
+            }
+            
+            .corazon {
+                width: 50px;
+                height: 50px;
+                font-size: 25px;
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+        
+        /* Celulares pequeños (400px y menores) */
+        @media (max-width: 480px) {
+            body {
+                padding: 15px 12px;
+            }
+            
+            h1 {
+                font-size: 28px;
+            }
+            
+            .subtitulo {
+                font-size: 14px;
+            }
+            
+            .categoria-titulo {
+                font-size: 16px;
+            }
+            
+            .categoria-titulo span {
+                font-size: 20px;
+            }
+            
+            .gusto {
+                font-size: 12px;
+                padding: 5px 12px;
+            }
+            
+            .tarjeta-principal {
+                padding: 18px;
+            }
+            
+            .categoria {
+                padding: 12px;
+            }
+            
+            .grid-categorias {
+                gap: 15px;
+            }
+            
+            button {
+                padding: 10px 25px;
+                font-size: 14px;
+            }
+            
+            .corazon {
+                width: 45px;
+                height: 45px;
+                font-size: 22px;
+            }
+        }
+        
+        /* Para dispositivos con pantalla táctil */
+        @media (hover: none) and (pointer: coarse) {
+            .categoria:hover {
+                transform: none;
+            }
+            
+            .categoria:active {
+                transform: translateX(5px);
+            }
+            
+            .gusto:hover {
+                transform: none;
+            }
+            
+            .gusto:active {
+                transform: scale(0.98);
+                background: #d46b8f;
+                color: white;
+            }
+            
+            button:active {
+                transform: scale(0.96);
+            }
+            
+            .corazon:active {
+                transform: scale(0.95);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="contenedor">
+        <div class="tarjeta-principal">
+            <h1>🌸 ¿Qué es lo que le gusta? 🌸</h1>
+            <div class="subtitulo">✨ Cositas que hacen feliz a Aymar ✨</div>
+            
+            <div class="grid-categorias">
+                <!-- Flores -->
+                <div class="categoria">
+                    <div class="categoria-titulo">
+                        <span>🌺</span> Flores
+                    </div>
+                    <div class="lista-gustos">
+                        <div class="gusto">Los lirios</div>
+                        <div class="gusto">Los lirios del valle</div>
+                    </div>
+                </div>
+
+                <!-- Comida -->
+                <div class="categoria">
+                    <div class="categoria-titulo">
+                        <span>🍕</span> Comida
+                    </div>
+                    <div class="lista-gustos">
+                        <div class="gusto">La pizza</div>
+                        <div class="gusto">El vino tinto</div>
+                    </div>
+                </div>
+
+                <!-- Animales y Naturaleza -->
+                <div class="categoria">
+                    <div class="categoria-titulo">
+                        <span>🐾</span> Animales y Naturaleza
+                    </div>
+                    <div class="lista-gustos">
+                        <div class="gusto">Los animales</div>
+                        <div class="gusto">El monte</div>
+                        <div class="gusto">El frío</div>
+                        <div class="gusto">La noche</div>
+                        <div class="gusto">La luna</div>
+                    </div>
+                </div>
+
+                <!-- Colores favoritos -->
+                <div class="categoria">
+                    <div class="categoria-titulo">
+                        <span>🎨</span> Colores favoritos
+                    </div>
+                    <div class="lista-gustos">
+                        <div class="gusto">Lila</div>
+                        <div class="gusto">Azul</div>
+                        <div class="gusto">Rosado pastel</div>
+                        <div class="gusto">Blanco</div>
+                    </div>
+                </div>
+
+                <!-- Accesorios -->
+                <div class="categoria">
+                    <div class="categoria-titulo">
+                        <span>💍</span> Accesorios
+                    </div>
+                    <div class="lista-gustos">
+                        <div class="gusto">Los anillos</div>
+                        <div class="gusto">Las pulseras</div>
+                        <div class="gusto">Los lazos grandes</div>
+                    </div>
+                </div>
+
+                <!-- Ropa -->
+                <div class="categoria">
+                    <div class="categoria-titulo">
+                        <span>👗</span> Ropa
+                    </div>
+                    <div class="lista-gustos">
+                        <div class="gusto">Los vestidos largos</div>
+                        <div class="gusto">Los tacones</div>
+                        <div class="gusto">Las botas</div>
+                    </div>
+                </div>
+
+                <!-- Hobbies -->
+                <div class="categoria">
+                    <div class="categoria-titulo">
+                        <span>📚</span> Hobbies
+                    </div>
+                    <div class="lista-gustos">
+                        <div class="gusto">Pasar tiempo con amigos</div>
+                        <div class="gusto">Los libros</div>
+                        <div class="gusto">Los patines</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botón de regreso -->
+            <div class="boton-volver">
+                <div class="boton-wrapper">
+                    <button onclick="window.location.href='aymar.html'">✨ Volver ✨</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Corazón flotante -->
+    <div class="corazon" onclick="alert('🌸 Todo esto y más te hace especial 🌸')">
+        💖
+    </div>
+</body>
+</html>

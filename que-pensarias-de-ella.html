@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Aymar - ¿Qué pensarían de ella?</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #f8d0e0 0%, #fce4ec 100%);
+            min-height: 100vh;
+            padding: 50px 20px;
+        }
+
+        .contenedor {
+            max-width: 1100px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* Título principal */
+        h1 {
+            text-align: center;
+            color: #d46b8f;
+            font-size: 52px;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 15px rgba(212, 107, 143, 0.3);
+            animation: fadeInDown 0.8s ease;
+            position: relative;
+        }
+
+        h1::before {
+            content: '💭';
+            position: absolute;
+            left: 8%;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 45px;
+            opacity: 0.8;
+        }
+
+        h1::after {
+            content: '💬';
+            position: absolute;
+            right: 8%;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 45px;
+            opacity: 0.8;
+        }
+
+        .subtitulo {
+            text-align: center;
+            color: #d46b8f;
+            font-size: 20px;
+            margin-bottom: 40px;
+            opacity: 0.8;
+            font-style: italic;
+        }
+
+        /* Tarjeta principal */
+        .tarjeta-principal {
+            background-color: white;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            animation: fadeInUp 0.6s ease;
+            margin-bottom: 35px;
+            width: 100%;
+        }
+
+        .contenido-pensamientos {
+            padding: 35px;
+        }
+
+        /* Opiniones destacadas */
+        .opiniones {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .opinion {
+            background: #fef5f7;
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid #f0b6d0;
+        }
+
+        .opinion:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(212, 107, 143, 0.2);
+        }
+
+        .opinion-emoji {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        .opinion-texto {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        .opinion-autor {
+            margin-top: 15px;
+            color: #d46b8f;
+            font-weight: bold;
+        }
+
+        /* Frase destacada */
+        .frase-destacada {
+            background: linear-gradient(135deg, #ffb6c1, #d46b8f);
+            padding: 25px;
+            border-radius: 20px;
+            text-align: center;
+            margin: 25px 0;
+        }
+
+        .frase-destacada p {
+            color: white;
+            font-size: 20px;
+            font-style: italic;
+            font-weight: bold;
+        }
+
+        /* Galería de imágenes interactivas */
+        .seccion-imagenes {
+            background: white;
+            border-radius: 25px;
+            padding: 35px;
+            margin-bottom: 35px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            animation: fadeInUp 0.6s ease;
+            animation-delay: 0.2s;
+            animation-fill-mode: both;
+        }
+
+        .seccion-imagenes h2 {
+            text-align: center;
+            color: #d46b8f;
+            font-size: 28px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .galeria {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            justify-content: center;
+        }
+
+        .tarjeta-imagen {
+            background: #fef5f7;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .tarjeta-imagen:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 35px rgba(212, 107, 143, 0.3);
+        }
+
+        .marco-imagen {
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #ffb6c1, #d46b8f);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .marco-imagen img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease, opacity 0.3s ease;
+        }
+
+        .tarjeta-imagen:hover .marco-imagen img {
+            transform: scale(1.1);
+        }
+
+        /* Información que aparece al hacer clic */
+        .info-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .info-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .info-card {
+            background: white;
+            border-radius: 30px;
+            max-width: 400px;
+            width: 90%;
+            padding: 30px;
+            text-align: center;
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .info-overlay.active .info-card {
+            transform: scale(1);
+        }
+
+        .info-card .cerrar {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 30px;
+            cursor: pointer;
+            color: #d46b8f;
+            transition: transform 0.3s ease;
+        }
+
+        .info-card .cerrar:hover {
+            transform: scale(1.2);
+        }
+
+        .info-emoji {
+            font-size: 60px;
+            margin-bottom: 15px;
+        }
+
+        .info-titulo {
+            font-size: 24px;
+            color: #d46b8f;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .info-texto {
+            color: #555;
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        .placeholder-imagen {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #ffb6c1, #d46b8f);
+            color: white;
+            font-size: 48px;
+            gap: 10px;
+        }
+
+        .placeholder-imagen p {
+            font-size: 14px;
+            margin-top: 10px;
+            background: rgba(0,0,0,0.3);
+            padding: 5px 10px;
+            border-radius: 20px;
+        }
+
+        .pie-imagen {
+            padding: 15px;
+            text-align: center;
+            color: #d46b8f;
+            font-weight: bold;
+            background: white;
+            font-size: 14px;
+        }
+
+        /* Botón de regreso */
+        .boton-volver {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .boton-wrapper {
+            position: relative;
+            display: inline-block;
+            border-radius: 35px;
+        }
+
+        .boton-wrapper::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(45deg, #ff0000, #ff7700, #ffdd00, #00ff00, #0000ff, #4b0082, #9400d3, #ff0000);
+            background-size: 400%;
+            border-radius: 35px;
+            z-index: -1;
+            animation: girarColores 3s linear infinite;
+        }
+
+        .boton-wrapper::after {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(45deg, #ff0000, #ff7700, #ffdd00, #00ff00, #0000ff, #4b0082, #9400d3, #ff0000);
+            background-size: 400%;
+            border-radius: 35px;
+            z-index: -2;
+            filter: blur(15px);
+            animation: girarColores 3s linear infinite;
+        }
+
+        button {
+            padding: 14px 40px;
+            font-size: 18px;
+            font-weight: bold;
+            background-color: white;
+            color: #d46b8f;
+            border: none;
+            border-radius: 35px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+            font-family: inherit;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            color: #b84d70;
+        }
+
+        @keyframes girarColores {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Animaciones */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Corazón flotante */
+        .corazon-flotante {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(45deg, #ffb6c1, #d46b8f);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(212, 107, 143, 0.4);
+            transition: all 0.3s ease;
+            animation: latir 1s ease infinite;
+        }
+
+        .corazon-flotante:hover {
+            transform: scale(1.1);
+        }
+
+        @keyframes latir {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* ============================================ */
+        /* FORMATO PARA CELULAR - MEDIA QUERIES */
+        /* ============================================ */
+        
+        /* Tablets (768px y menores) */
+        @media (max-width: 768px) {
+            body {
+                padding: 30px 15px;
+            }
+            
+            .contenedor {
+                max-width: 100%;
+            }
+            
+            h1 {
+                font-size: 40px;
+            }
+            
+            h1::before, h1::after {
+                font-size: 30px;
+            }
+            
+            .subtitulo {
+                font-size: 18px;
+                margin-bottom: 30px;
+            }
+            
+            .contenido-pensamientos {
+                padding: 25px;
+            }
+            
+            .opiniones {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .frase-destacada p {
+                font-size: 16px;
+            }
+            
+            .seccion-imagenes {
+                padding: 25px;
+            }
+            
+            .seccion-imagenes h2 {
+                font-size: 24px;
+            }
+        }
+        
+        /* Celulares (600px y menores) */
+        @media (max-width: 600px) {
+            body {
+                padding: 20px 15px;
+            }
+            
+            h1 {
+                font-size: 32px;
+                margin-bottom: 15px;
+            }
+            
+            h1::before, h1::after {
+                font-size: 22px;
+                display: none;
+            }
+            
+            .subtitulo {
+                font-size: 14px;
+                margin-bottom: 25px;
+            }
+            
+            .contenido-pensamientos {
+                padding: 18px;
+            }
+            
+            .opinion {
+                padding: 15px;
+            }
+            
+            .opinion-emoji {
+                font-size: 36px;
+            }
+            
+            .opinion-texto {
+                font-size: 13px;
+            }
+            
+            .opinion-autor {
+                font-size: 12px;
+            }
+            
+            .frase-destacada {
+                padding: 18px;
+            }
+            
+            .frase-destacada p {
+                font-size: 14px;
+            }
+            
+            .seccion-imagenes {
+                padding: 18px;
+                margin-bottom: 25px;
+            }
+            
+            .seccion-imagenes h2 {
+                font-size: 20px;
+                margin-bottom: 20px;
+            }
+            
+            .seccion-imagenes h2::before,
+            .seccion-imagenes h2::after {
+                font-size: 22px;
+            }
+            
+            .galeria {
+                grid-template-columns: 1fr;
+                gap: 18px;
+            }
+            
+            .marco-imagen {
+                height: 200px;
+            }
+            
+            .pie-imagen {
+                padding: 12px;
+                font-size: 12px;
+            }
+            
+            button {
+                padding: 12px 30px;
+                font-size: 16px;
+            }
+            
+            .corazon-flotante {
+                width: 50px;
+                height: 50px;
+                font-size: 25px;
+                bottom: 20px;
+                right: 20px;
+            }
+            
+            .info-card {
+                padding: 20px;
+            }
+            
+            .info-emoji {
+                font-size: 45px;
+            }
+            
+            .info-titulo {
+                font-size: 20px;
+            }
+            
+            .info-texto {
+                font-size: 14px;
+            }
+        }
+        
+        /* Celulares pequeños (480px y menores) */
+        @media (max-width: 480px) {
+            body {
+                padding: 15px 12px;
+            }
+            
+            h1 {
+                font-size: 28px;
+            }
+            
+            .subtitulo {
+                font-size: 12px;
+                margin-bottom: 20px;
+            }
+            
+            .contenido-pensamientos {
+                padding: 15px;
+            }
+            
+            .opinion {
+                padding: 12px;
+            }
+            
+            .opinion-emoji {
+                font-size: 30px;
+            }
+            
+            .opinion-texto {
+                font-size: 12px;
+            }
+            
+            .frase-destacada {
+                padding: 15px;
+            }
+            
+            .frase-destacada p {
+                font-size: 12px;
+            }
+            
+            .seccion-imagenes {
+                padding: 15px;
+            }
+            
+            .seccion-imagenes h2 {
+                font-size: 18px;
+            }
+            
+            .marco-imagen {
+                height: 180px;
+            }
+            
+            .pie-imagen {
+                padding: 10px;
+                font-size: 11px;
+            }
+            
+            button {
+                padding: 10px 25px;
+                font-size: 14px;
+            }
+            
+            .corazon-flotante {
+                width: 45px;
+                height: 45px;
+                font-size: 22px;
+            }
+        }
+        
+        /* Para dispositivos con pantalla táctil */
+        @media (hover: none) and (pointer: coarse) {
+            .opinion:hover {
+                transform: none;
+            }
+            
+            .opinion:active {
+                transform: scale(0.98);
+            }
+            
+            .tarjeta-imagen:hover {
+                transform: none;
+            }
+            
+            .tarjeta-imagen:active {
+                transform: scale(0.98);
+            }
+            
+            button:active {
+                transform: scale(0.96);
+            }
+            
+            .corazon-flotante:active {
+                transform: scale(0.95);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="contenedor">
+        <h1>💭 ¿Qué pensarían de ella? 💬</h1>
+        <div class="subtitulo">🌸 Lo que todos dicen sobre la persona más especial 🌸</div>
+        
+        <!-- Tarjeta principal -->
+        <div class="tarjeta-principal">
+            <div class="contenido-pensamientos">
+                <div class="opiniones">
+                    <div class="opinion">
+                        <div class="opinion-emoji">👨‍👩‍👧</div>
+                        <div class="opinion-texto">"Es una hija increíble, siempre nos llena de orgullo con su esfuerzo y dedicación. Tiene un corazón enorme y una sonrisa que ilumina nuestros días."</div>
+                        <div class="opinion-autor">— Sus padres</div>
+                    </div>
+                    <div class="opinion">
+                        <div class="opinion-emoji">👯‍♀️</div>
+                        <div class="opinion-texto">"Aymar es la amiga que todos quisieran tener. Siempre está ahí cuando la necesitas, es leal, divertida y hace que cualquier momento sea especial."</div>
+                        <div class="opinion-autor">— Sus amigos</div>
+                    </div>
+                    <div class="opinion">
+                        <div class="opinion-emoji">💕</div>
+                        <div class="opinion-texto">"Tiene una energía única que enamora. Es atenta, cariñosa y siempre saca una sonrisa en los momentos difíciles. Es una persona que deja huella."</div>
+                        <div class="opinion-autor">— Quienes la conocen</div>
+                    </div>
+                </div>
+
+                <div class="frase-destacada">
+                    <p>💖 "Aymar es de esas personas que iluminan una habitación solo con entrar, su esencia es única y especial" 💖</p>
+                </div>
+
+                <div class="opiniones">
+                    <div class="opinion">
+                        <div class="opinion-emoji">👩‍🏫</div>
+                        <div class="opinion-texto">"Es una estudiante ejemplar, dedicada y con una gran capacidad para lograr todo lo que se propone. Su esfuerzo es admirable."</div>
+                        <div class="opinion-autor">— Sus profesores</div>
+                    </div>
+                    <div class="opinion">
+                        <div class="opinion-emoji">🌟</div>
+                        <div class="opinion-texto">"Tiene un brillo especial. Es de esas personas que dejan una marca en tu vida, no pasa desapercibida. Es auténtica y genuina."</div>
+                        <div class="opinion-autor">— Quienes la admiran</div>
+                    </div>
+                    <div class="opinion">
+                        <div class="opinion-emoji">💫</div>
+                        <div class="opinion-texto">"Su fortaleza y valentía son inspiradoras. A pesar de los obstáculos, siempre sigue adelante con una sonrisa. Es un ejemplo a seguir."</div>
+                        <div class="opinion-autor">— Su familia</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Galería de imágenes interactivas -->
+        <div class="seccion-imagenes">
+            <h2>📸 Momentos que la definen ✨</h2>
+            <div class="galeria">
+                <!-- Imagen 1 -->
+                <div class="tarjeta-imagen" onclick="mostrarInfo(1)">
+                    <div class="marco-imagen">
+                        <img src="imagin/6.jpeg" alt="Aymar 1" onerror="this.parentElement.innerHTML='<div class=placeholder-imagen>💖<p>Agrega tu foto aquí</p></div>'">
+                    </div>
+                    <div class="pie-imagen">💖 Su sonrisa ilumina 💖</div>
+                </div>
+
+                <!-- Imagen 2 -->
+                <div class="tarjeta-imagen" onclick="mostrarInfo(2)">
+                    <div class="marco-imagen">
+                        <img src="imagin/7.jpeg" alt="Aymar 2" onerror="this.parentElement.innerHTML='<div class=placeholder-imagen>✨<p>Agrega tu foto aquí</p></div>'">
+                    </div>
+                    <div class="pie-imagen">✨ Su esencia única ✨</div>
+                </div>
+
+                <!-- Imagen 3 -->
+                <div class="tarjeta-imagen" onclick="mostrarInfo(3)">
+                    <div class="marco-imagen">
+                        <img src="imagin/1.jpeg" alt="Aymar 3" onerror="this.parentElement.innerHTML='<div class=placeholder-imagen>💫<p>Agrega tu foto aquí</p></div>'">
+                    </div>
+                    <div class="pie-imagen">💫 Su corazón gigante 💫</div>
+                </div>
+
+                <!-- Imagen 4 -->
+                <div class="tarjeta-imagen" onclick="mostrarInfo(4)">
+                    <div class="marco-imagen">
+                        <img src="imagin/11.jpg" alt="Aymar 4" onerror="this.parentElement.innerHTML='<div class=placeholder-imagen>🌟<p>Agrega tu foto aquí</p></div>'">
+                    </div>
+                    <div class="pie-imagen">🌟 Su luz propia 🌟</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botón de regreso -->
+        <div class="boton-volver">
+            <div class="boton-wrapper">
+                <button onclick="window.location.href='aymar.html'">✨ Volver ✨</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlay para información al hacer clic -->
+    <div id="infoOverlay" class="info-overlay" onclick="cerrarInfo()">
+        <div class="info-card" onclick="event.stopPropagation()">
+            <div class="cerrar" onclick="cerrarInfo()">&times;</div>
+            <div id="infoEmoji" class="info-emoji">💖</div>
+            <div id="InfoTitulo" class="info-titulo"></div>
+            <div id="infoTexto" class="info-texto"></div>
+        </div>
+    </div>
+
+    <!-- Corazón flotante -->
+    <div class="corazon-flotante" onclick="alert('💖 Aymar, eres increíble tal como eres 💖')">
+        💖
+    </div>
+
+    <script>
+        // Datos de cada imagen
+        const infoImagenes = {
+            1: {
+                emoji: "💖",
+                titulo: "Su sonrisa",
+                texto: "Su sonrisa es como el sol en un día lluvioso, ilumina todo a su alrededor y contagia felicidad a quien la ve. Es una de las cosas más hermosas que tiene."
+            },
+            2: {
+                emoji: "✨",
+                titulo: "Su esencia",
+                texto: "Es única, auténtica y genuina. No hay nadie como ella. Su forma de ser, de hablar, de reír... todo en ella es especial y deja huella en quienes la conocen."
+            },
+            3: {
+                emoji: "💫",
+                titulo: "Su corazón",
+                texto: "Tiene un corazón enorme, capaz de amar sin medida. Siempre está dispuesta a ayudar, a escuchar y a dar lo mejor de sí. Eso la hace realmente especial."
+            },
+            4: {
+                emoji: "🌟",
+                titulo: "Su luz",
+                texto: "Aymar tiene una luz propia que brilla intensamente. No pasa desapercibida, su presencia se siente y deja una marca imborrable en todos los que tienen la dicha de conocerla."
+            }
+        };
+
+        function mostrarInfo(numero) {
+            const info = infoImagenes[numero];
+            if(info) {
+                document.getElementById('infoEmoji').textContent = info.emoji;
+                document.getElementById('InfoTitulo').textContent = info.titulo;
+                document.getElementById('infoTexto').textContent = info.texto;
+                document.getElementById('infoOverlay').classList.add('active');
+            }
+        }
+
+        function cerrarInfo() {
+            document.getElementById('infoOverlay').classList.remove('active');
+        }
+
+        // Cerrar con tecla ESC
+        document.addEventListener('keydown', function(event) {
+            if(event.key === 'Escape') {
+                cerrarInfo();
+            }
+        });
+    </script>
+</body>
+</html>
